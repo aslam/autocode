@@ -85,9 +85,13 @@ module AutoCode
         @autocode[:constructors][ AutoCode.normalize( key ) ] << lambda do | cname |
           filename = AutoCode.snake_case( cname ) << '.rb'
           options[:directories] ||= '.'
-          path = options[:directories].
+          path = if target = options[:target]
+            target.call(key)
+          else
+            options[:directories].
             map { |dir| File.join( dir.to_s, filename ) }.
             find { |path| File.exist?( path ) }
+          end
           Kernel.load( path ) unless path.nil?
         end
       end
