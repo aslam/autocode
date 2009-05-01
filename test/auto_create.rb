@@ -49,7 +49,7 @@ describe "auto_create" do
   end
   
   it "raises a NameError if a const doesn't match" do
-    lambda{ A::C }.should.raise NameError
+    lambda{ A::C }.should raise_error( NameError)
   end
   
   it "can take a Regexp as a key" do

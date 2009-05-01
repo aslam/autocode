@@ -56,7 +56,11 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.add([ 'README', 'HISTORY', 'lib/*.rb' ])
 end
 
-Rake::TestTask.new(:test) do |t|
-  t.test_files = FileList["test/*.rb"].exclude("test/helpers.rb")
-  t.verbose = true
+desc "run some tests"
+task :test do
+  options = ENV['options']
+  files = FileList['test/**/*.rb'].exclude( 'test/helpers.rb')
+  puts cmd = "spec -c #{  files.join(' ') }"
+  system cmd 
 end
+

@@ -16,7 +16,7 @@ describe "An auto_created module" do
   end
   
   it "automatically includes AutoCode" do
-    A::B.included_modules.should.include AutoCode
+    A::B.included_modules.should include( AutoCode )
   end
   
   it "can be initialized by later auto_eval declarations" do

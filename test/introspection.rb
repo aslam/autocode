@@ -8,8 +8,8 @@ describe "A module that has included AutoCode" do
       auto_create_module :B
     end
     
-    A.auto_const?(:B).should.be.true
-    A.auto_const?(:C).should.not.be.true
+    A.auto_const?(:B).should be_true
+    A.auto_const?(:C).should_not be_true
   end
   
 end

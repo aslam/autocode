@@ -15,12 +15,6 @@ describe "auto_load" do
       end
     EOF
     File.write( @path, content )
-    module A
-      include AutoCode
-      auto_create_class :B
-      auto_load :B, :directories => ['tmp']
-    end
-    
   end
   
   after do
@@ -29,15 +23,39 @@ describe "auto_load" do
   end
   
   specify "allows you to load a file to define a const" do
+    module A
+      include AutoCode
+      auto_create_class :B
+      auto_load :B, :directories => ['tmp']
+    end
     A::B.class.should == Module
   end
   
   specify "should implement LIFO semantics" do
+    module A
+      include AutoCode
+      auto_create_class :B
+      auto_load :B, :directories => ['tmp']
+    end
     A::B.class.should == Module
   end
 
   specify "raises a NameError if a const doesn't match" do
-    lambda{ A::C }.should.raise NameError
+    module A
+      include AutoCode
+      auto_create_class :B
+      auto_load :B, :directories => ['tmp']
+    end
+    lambda{ A::C }.should raise_error( NameError )
+  end
+
+  it "can use a lambda to specify the target file" do
+    module A
+      include AutoCode
+      auto_create_class :B
+      auto_load :B, :target => lambda {|cname| "tmp/#{cname.to_s.downcase}.rb" }
+    end
+    A::B.class.should == Module 
   end
 
 end
