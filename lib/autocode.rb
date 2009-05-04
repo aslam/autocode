@@ -86,7 +86,7 @@ module AutoCode
           filename = AutoCode.snake_case( cname ) << '.rb'
           options[:directories] ||= '.'
           path = if target = options[:target]
-            target.call(key)
+            target.call(cname)
           else
             options[:directories].
             map { |dir| File.join( dir.to_s, filename ) }.
